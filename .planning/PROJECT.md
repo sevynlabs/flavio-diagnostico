@@ -47,6 +47,7 @@ O agente SDR qualifica leads automaticamente via WhatsApp, gerencia o CRM de for
 
 ## Constraints
 
+- **Platform**: Lovable — desenvolvimento via plataforma AI (React + Supabase como stack padrão)
 - **IA Model**: OpenAI GPT (GPT-4o / GPT-4o-mini) — modelo escolhido para os agentes
 - **Scale**: 10-50 usuários simultâneos — não precisa de hiper-escalabilidade mas deve ser robusto
 - **Channels**: WhatsApp (API Oficial + Evolution API) e Instagram DMs — são os canais prioritários
@@ -61,6 +62,7 @@ O agente SDR qualifica leads automaticamente via WhatsApp, gerencia o CRM de for
 | WhatsApp dual (Oficial + Evolution) | Flexibilidade — API Oficial para escala, Evolution para custo zero | — Pending |
 | OpenAI GPT como modelo de IA | Modelo escolhido pelo cliente | — Pending |
 | Agentes configuráveis | Usuário define prompt, personalidade e regras de cada agente | — Pending |
+| Lovable como plataforma de dev | Desenvolvimento via AI — React + Supabase como stack | — Pending |
 
 ---
 *Last updated: 2026-03-11 after initialization*
