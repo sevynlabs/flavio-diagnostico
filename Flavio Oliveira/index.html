@@ -2373,40 +2373,13 @@ if (whatsappInput) {
 }
 
 // Google Sheets Webhook
-var SHEET_WEBHOOK = 'https://script.google.com/macros/s/AKfycbw2U15axlNot_iSEO1QJePi8V-4PoFVVN2OhnpgalpbAN5GB5okXs_eVn5PXG0CTaFA/exec';
+var SHEET_URL = 'https://script.google.com/macros/s/AKfycbw2U15axlNot_iSEO1QJePi8V-4PoFVVN2OhnpgalpbAN5GB5okXs_eVn5PXG0CTaFA/exec';
 
-// Envia dados via iframe oculto (funciona em qualquer ambiente, sem CORS)
-function enviarParaSheet(dados) {
-  var form = document.createElement('form');
-  form.method = 'POST';
-  form.action = SHEET_WEBHOOK;
-  form.target = 'sheet-iframe';
-  form.style.display = 'none';
-  Object.keys(dados).forEach(function(key) {
-    var input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = key;
-    input.value = dados[key];
-    form.appendChild(input);
-  });
-  var iframe = document.getElementById('sheet-iframe');
-  if (!iframe) {
-    iframe = document.createElement('iframe');
-    iframe.name = 'sheet-iframe';
-    iframe.id = 'sheet-iframe';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-  }
-  document.body.appendChild(form);
-  form.submit();
-  form.remove();
-}
-
-// Form submit — envia ao Sheets e redireciona ao checkout Hotmart
+// Form submit — salva no Sheets e redireciona ao checkout
 document.getElementById('form-diagnostico').addEventListener('submit', function(e) {
   e.preventDefault();
   var btn = this.querySelector('.btn-primary');
-  btn.innerHTML = '<span style="letter-spacing:2px">REDIRECIONANDO AO CHECKOUT...</span>';
+  btn.innerHTML = '<span style="letter-spacing:2px">ENVIANDO DADOS...</span>';
   btn.style.pointerEvents = 'none';
   btn.style.opacity = '0.7';
 
@@ -2417,23 +2390,34 @@ document.getElementById('form-diagnostico').addEventListener('submit', function(
   var faturamento = document.getElementById('faturamento').value;
   var desafio = document.getElementById('desafio').value;
 
-  // Envia dados ao Google Sheets via iframe
-  enviarParaSheet({
-    nome: nome,
-    email: email,
-    whatsapp: whatsapp,
-    segmento: segmento,
-    faturamento: faturamento,
-    desafio: desafio
-  });
+  // Monta URL com query params (GET) — metodo mais confiavel, sem CORS
+  var sheetUrl = SHEET_URL
+    + '?nome=' + encodeURIComponent(nome)
+    + '&email=' + encodeURIComponent(email)
+    + '&whatsapp=' + encodeURIComponent(whatsapp)
+    + '&segmento=' + encodeURIComponent(segmento)
+    + '&faturamento=' + encodeURIComponent(faturamento)
+    + '&desafio=' + encodeURIComponent(desafio);
 
-  // Redireciona ao checkout Hotmart
+  var hotmartUrl = 'https://pay.hotmart.com/O105005886B'
+    + '?email=' + encodeURIComponent(email)
+    + '&name=' + encodeURIComponent(nome)
+    + '&phoneac=' + encodeURIComponent(whatsapp);
+
+  // Envia ao Sheets via GET (sem CORS), depois redireciona ao checkout
+  var img = new Image();
+  img.onload = img.onerror = function() {
+    btn.innerHTML = '<span style="letter-spacing:2px">LIBERANDO CHECKOUT...</span>';
+    setTimeout(function() {
+      window.location.href = hotmartUrl;
+    }, 600);
+  };
+  img.src = sheetUrl;
+
+  // Fallback: se nao responder em 3s, redireciona mesmo assim
   setTimeout(function() {
-    window.location.href = 'https://pay.hotmart.com/O105005886B'
-      + '?email=' + encodeURIComponent(email)
-      + '&name=' + encodeURIComponent(nome)
-      + '&phoneac=' + encodeURIComponent(whatsapp);
-  }, 1200);
+    window.location.href = hotmartUrl;
+  }, 3000);
 });
 </script>
 
