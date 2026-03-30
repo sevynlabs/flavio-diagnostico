@@ -2165,7 +2165,7 @@ body::before {
         <span style="font-family:'Outfit',sans-serif;font-size:2.5rem;font-weight:800;color:var(--gold-primary);">R$ 997</span>
       </div>
       <p class="box-sub">90 minutos de diagnostico profundo + bonus exclusivos + Jantar de Negocios*</p>
-      <form id="form-diagnostico" action="#" method="POST">
+      <form id="form-diagnostico">
         <div class="form-row">
           <div class="form-group">
             <label for="nome">Seu nome</label>
@@ -2183,7 +2183,7 @@ body::before {
         <div class="form-row">
           <div class="form-group">
             <label for="segmento">Segmento do negocio</label>
-            <select id="segmento" name="segmento" required>
+            <select id="segmento" name="segmento">
               <option value="" disabled selected>Selecione</option>
               <option value="alimentacao">Alimentacao / Restaurantes</option>
               <option value="varejo">Varejo</option>
@@ -2196,7 +2196,7 @@ body::before {
           </div>
           <div class="form-group">
             <label for="faturamento">Faturamento anual</label>
-            <select id="faturamento" name="faturamento" required>
+            <select id="faturamento" name="faturamento">
               <option value="" disabled selected>Selecione</option>
               <option value="ate-500k">Ate R$ 500 mil</option>
               <option value="500k-1m">R$ 500 mil — R$ 1 milhao</option>
@@ -2372,52 +2372,64 @@ if (whatsappInput) {
   });
 }
 
-// Google Sheets Webhook
+// ==========================================
+// INTEGRACAO: FORMULARIO → SHEETS → HOTMART
+// ==========================================
 var SHEET_URL = 'https://script.google.com/macros/s/AKfycbw2U15axlNot_iSEO1QJePi8V-4PoFVVN2OhnpgalpbAN5GB5okXs_eVn5PXG0CTaFA/exec';
+var HOTMART_URL = 'https://pay.hotmart.com/O105005886B';
 
-// Form submit — salva no Sheets e redireciona ao checkout
-document.getElementById('form-diagnostico').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var btn = this.querySelector('.btn-primary');
-  btn.innerHTML = '<span style="letter-spacing:2px">ENVIANDO DADOS...</span>';
+function irParaCheckout(nome, email, whatsapp) {
+  window.location.href = HOTMART_URL
+    + '?email=' + encodeURIComponent(email)
+    + '&name=' + encodeURIComponent(nome)
+    + '&phoneac=' + encodeURIComponent(whatsapp);
+}
+
+document.getElementById('form-diagnostico').addEventListener('submit', function(evt) {
+  evt.preventDefault();
+  evt.stopPropagation();
+
+  // Pega valores
+  var nome = document.getElementById('nome').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var whatsapp = document.getElementById('whatsapp').value.trim();
+  var segmento = document.getElementById('segmento').value || '';
+  var faturamento = document.getElementById('faturamento').value || '';
+  var desafio = document.getElementById('desafio').value || '';
+
+  // Validacao basica
+  if (!nome || !email) {
+    alert('Preencha seu nome e e-mail para continuar.');
+    return;
+  }
+
+  // Feedback visual
+  var btn = document.querySelector('#form-diagnostico .btn-primary');
+  btn.innerHTML = '<span style="letter-spacing:2px">ENVIANDO...</span>';
   btn.style.pointerEvents = 'none';
   btn.style.opacity = '0.7';
 
-  var nome = document.getElementById('nome').value;
-  var email = document.getElementById('email').value;
-  var whatsapp = document.getElementById('whatsapp').value;
-  var segmento = document.getElementById('segmento').value;
-  var faturamento = document.getElementById('faturamento').value;
-  var desafio = document.getElementById('desafio').value;
-
-  // Monta URL com query params (GET) — metodo mais confiavel, sem CORS
-  var sheetUrl = SHEET_URL
-    + '?nome=' + encodeURIComponent(nome)
+  // Monta URL do Sheets com dados
+  var params = '?nome=' + encodeURIComponent(nome)
     + '&email=' + encodeURIComponent(email)
     + '&whatsapp=' + encodeURIComponent(whatsapp)
     + '&segmento=' + encodeURIComponent(segmento)
     + '&faturamento=' + encodeURIComponent(faturamento)
     + '&desafio=' + encodeURIComponent(desafio);
 
-  var hotmartUrl = 'https://pay.hotmart.com/O105005886B'
-    + '?email=' + encodeURIComponent(email)
-    + '&name=' + encodeURIComponent(nome)
-    + '&phoneac=' + encodeURIComponent(whatsapp);
+  // Envia via fetch (modo no-cors para nao bloquear)
+  fetch(SHEET_URL + params, { method: 'GET', mode: 'no-cors' })
+    .then(function() {
+      btn.innerHTML = '<span style="letter-spacing:2px">CHECKOUT LIBERADO!</span>';
+      setTimeout(function() { irParaCheckout(nome, email, whatsapp); }, 500);
+    })
+    .catch(function() {
+      // Mesmo com erro, redireciona ao checkout
+      irParaCheckout(nome, email, whatsapp);
+    });
 
-  // Envia ao Sheets via GET (sem CORS), depois redireciona ao checkout
-  var img = new Image();
-  img.onload = img.onerror = function() {
-    btn.innerHTML = '<span style="letter-spacing:2px">LIBERANDO CHECKOUT...</span>';
-    setTimeout(function() {
-      window.location.href = hotmartUrl;
-    }, 600);
-  };
-  img.src = sheetUrl;
-
-  // Fallback: se nao responder em 3s, redireciona mesmo assim
-  setTimeout(function() {
-    window.location.href = hotmartUrl;
-  }, 3000);
+  // Fallback absoluto: redireciona em 4s mesmo se tudo falhar
+  setTimeout(function() { irParaCheckout(nome, email, whatsapp); }, 4000);
 });
 </script>
 
