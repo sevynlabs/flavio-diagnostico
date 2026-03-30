@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Método E.S.C.A.L.A. | Flávio Oliveira — Mentoria Master</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-card: #161616;
+  --bg-card-hover: #1a1a1a;
+  --gold-primary: #C8A050;
+  --gold-light: #E8C878;
+  --gold-dark: #A07830;
+  --gold-glow: rgba(200, 160, 80, 0.15);
+  --gold-glow-strong: rgba(200, 160, 80, 0.3);
+  --text-primary: #F5F0E8;
+  --text-secondary: #A09888;
+  --text-muted: #706858;
+  --border-subtle: rgba(200, 160, 80, 0.12);
+  --border-gold: rgba(200, 160, 80, 0.3);
+  --gradient-gold: linear-gradient(135deg, #C8A050, #E8C878, #C8A050);
+  --gradient-dark: linear-gradient(180deg, #0A0A0A 0%, #111111 100%);
+  --shadow-gold: 0 0 40px rgba(200, 160, 80, 0.08);
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════ UTILITY ═══════════════ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.container-narrow { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+.gold-text {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.section-label::before,
+.section-label::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gold-primary);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 48px;
+  line-height: 1.8;
+}
+
+/* ═══════════════ NOISE TEXTURE ═══════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ═══════════════ TOPBAR ═══════════════ */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 16px 0;
+  transition: all 0.3s ease;
+}
+.topbar .container {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.topbar-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.topbar-logo span { color: var(--gold-primary); }
+.topbar-cta {
+  background: transparent;
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  padding: 10px 28px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-family: 'DM Sans', sans-serif;
+}
+.topbar-cta:hover {
+  background: var(--gold-primary);
+  color: var(--bg-primary);
+}
+
+/* ═══════════════ HERO ═══════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  position: relative;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 200px;
+  background: linear-gradient(to top, var(--bg-primary), transparent);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(200, 160, 80, 0.08);
+  border: 1px solid var(--border-gold);
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 40px;
+  animation: fadeInDown 1s ease 0.2s both;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  background: var(--gold-primary);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 28px;
+  animation: fadeInUp 1s ease 0.4s both;
+  letter-spacing: -0.03em;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold-primary);
+}
+.hero-sub {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto 48px;
+  line-height: 1.8;
+  animation: fadeInUp 1s ease 0.6s both;
+}
+.hero-cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: fadeInUp 1s ease 0.8s both;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gradient-gold);
+  color: var(--bg-primary);
+  padding: 18px 48px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  font-family: 'DM Sans', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s ease;
+}
+.btn-primary:hover::before { left: 100%; }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(200, 160, 80, 0.35);
+}
+.btn-primary .arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+.btn-primary:hover .arrow { transform: translateX(4px); }
+
+.hero-proof {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+.hero-proof strong { color: var(--gold-primary); }
+
+/* ═══════════════ METRICS STRIP ═══════════════ */
+.metrics {
+  padding: 60px 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+}
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+.metric-item { position: relative; }
+.metric-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 10%; height: 80%;
+  width: 1px;
+  background: var(--border-subtle);
+}
+.metric-number {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--gold-primary);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.metric-label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ═══════════════ PROBLEMA ═══════════════ */
+.problema {
+  padding: 120px 0;
+  position: relative;
+}
+.problema-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.problema-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 28px;
+}
+.problema-content p {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  font-size: 1.05rem;
+}
+.problema-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+.problema-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(200, 80, 80, 0.04);
+  border: 1px solid rgba(200, 80, 80, 0.1);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+.problema-list li:hover {
+  background: rgba(200, 80, 80, 0.08);
+  border-color: rgba(200, 80, 80, 0.2);
+  transform: translateX(4px);
+}
+.problema-list .icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.problema-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.problema-card-stack {
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+.stat-card:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-gold);
+}
+.stat-card-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.stat-card-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #D45050;
+  margin-bottom: 4px;
+}
+.stat-card-value.gold { color: var(--gold-primary); }
+.stat-card-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════ MÉTODO ESCALA ═══════════════ */
+.metodo {
+  padding: 120px 0;
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+.metodo::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.metodo-header { text-align: center; margin-bottom: 72px; position: relative; z-index: 1; }
+.escala-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+.escala-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.escala-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: var(--gradient-gold);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.escala-card:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-gold);
+}
+.escala-card:hover::before { opacity: 1; }
+.escala-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.escala-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.escala-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ═══════════════ TRANSFORMAÇÃO ═══════════════ */
+.transformacao {
+  padding: 120px 0;
+}
+.transformacao-header { text-align: center; margin-bottom: 72px; }
+.transform-grid {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  gap: 0;
+  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.transform-col { display: flex; flex-direction: column; gap: 16px; }
+.transform-col-header {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  margin-bottom: 8px;
+}
+.transform-col-header.antes {
+  background: rgba(200, 80, 80, 0.08);
+  color: #D45050;
+  border: 1px solid rgba(200, 80, 80, 0.15);
+}
+.transform-col-header.depois {
+  background: rgba(200, 160, 80, 0.08);
+  color: var(--gold-primary);
+  border: 1px solid var(--border-gold);
+}
+.transform-item {
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.transform-item.antes-item {
+  background: rgba(200, 80, 80, 0.03);
+  border-left: 2px solid rgba(200, 80, 80, 0.2);
+}
+.transform-item.depois-item {
+  background: rgba(200, 160, 80, 0.03);
+  border-left: 2px solid var(--gold-dark);
+}
+.transform-arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 46px;
+  padding-top: 60px;
+  color: var(--text-muted);
+  font-size: 1.3rem;
+}
+
+/* ═══════════════ SOBRE FLÁVIO ═══════════════ */
+.sobre {
+  padding: 120px 0;
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+}
+.sobre-visual {
+  position: relative;
+}
+.sobre-img-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-primary) 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.sobre-img-placeholder::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(to top, rgba(200, 160, 80, 0.05), transparent);
+}
+.sobre-img-label {
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+}
+.sobre-img-label span {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  letter-spacing: 0;
+  margin-top: 8px;
+}
+.sobre-floating-card {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 20px 28px;
+  box-shadow: var(--shadow-card);
+}
+.sobre-floating-card .number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+}
+.sobre-floating-card .label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+.sobre-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 28px;
+}
+.sobre-content p {
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-size: 1.05rem;
+}
+.sobre-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 36px;
+}
+.highlight-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+.highlight-item:hover {
+  border-color: var(--border-gold);
+}
+.highlight-item .value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  margin-bottom: 4px;
+}
+.highlight-item .label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════ DEPOIMENTOS ═══════════════ */
+.depoimentos {
+  padding: 120px 0;
+}
+.depoimentos-header { text-align: center; margin-bottom: 72px; }
+.depoimentos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.depoimento-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  transition: all 0.4s ease;
+  position: relative;
+}
+.depoimento-card:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-4px);
+}
+.depoimento-quote {
+  font-size: 2rem;
+  color: var(--gold-primary);
+  font-family: 'Playfair Display', serif;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.depoimento-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+.depoimento-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.depoimento-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-gold);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--bg-primary);
+}
+.depoimento-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+}
+.depoimento-role {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.depoimento-result {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.depoimento-result .tag {
+  background: rgba(200, 160, 80, 0.08);
+  border: 1px solid var(--border-gold);
+  color: var(--gold-primary);
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ═══════════════ OFERTA ═══════════════ */
+.oferta {
+  padding: 120px 0;
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+.oferta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at center top, var(--gold-glow) 0%, transparent 50%);
+  pointer-events: none;
+}
+.oferta-header { text-align: center; margin-bottom: 60px; position: relative; z-index: 1; }
+.oferta-box {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 60px rgba(200, 160, 80, 0.06);
+}
+.oferta-box-header {
+  background: linear-gradient(135deg, rgba(200, 160, 80, 0.1) 0%, rgba(200, 160, 80, 0.03) 100%);
+  padding: 40px 48px;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: center;
+}
+.oferta-box-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.oferta-box-header p {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+.oferta-box-body {
+  padding: 48px;
+}
+.oferta-includes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+.oferta-includes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  transition: background 0.3s ease;
+}
+.oferta-includes li:hover {
+  background: rgba(200, 160, 80, 0.03);
+}
+.oferta-includes .check {
+  color: var(--gold-primary);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.oferta-includes .bonus-tag {
+  background: var(--gold-primary);
+  color: var(--bg-primary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-left: 8px;
+}
+.oferta-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 32px 0;
+}
+.oferta-price-block { text-align: center; }
+.oferta-price-de {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  margin-bottom: 8px;
+}
+.oferta-price-main {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--gold-primary);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.oferta-price-parcela {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.oferta-price-avista {
+  font-size: 0.85rem;
+  color: var(--gold-dark);
+  margin-bottom: 32px;
+}
+.oferta-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 28px;
+  background: rgba(200, 160, 80, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-top: 28px;
+}
+.oferta-guarantee .shield { font-size: 1.5rem; }
+.oferta-guarantee p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-align: left;
+}
+.oferta-guarantee strong { color: var(--gold-primary); }
+
+/* ═══════════════ FAQ ═══════════════ */
+.faq {
+  padding: 120px 0;
+}
+.faq-header { text-align: center; margin-bottom: 60px; }
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.faq-item:hover {
+  border-color: var(--border-gold);
+}
+.faq-question {
+  padding: 24px 28px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+.faq-question .toggle {
+  font-size: 1.3rem;
+  color: var(--gold-primary);
+  transition: transform 0.3s ease;
+}
+.faq-item.open .faq-question .toggle { transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+.faq-item.open .faq-answer {
+  max-height: 300px;
+}
+.faq-answer-content {
+  padding: 0 28px 24px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ═══════════════ CTA FINAL ═══════════════ */
+.cta-final {
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+.cta-final::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 1000px; height: 600px;
+  background: radial-gradient(ellipse, var(--gold-glow-strong) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-final .container { position: relative; z-index: 1; }
+.cta-final h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.cta-final p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+.cta-urgency {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(200, 80, 80, 0.08);
+  border: 1px solid rgba(200, 80, 80, 0.15);
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #D45050;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+}
+.cta-urgency .pulse {
+  width: 8px; height: 8px;
+  background: #D45050;
+  border-radius: 50%;
+  animation: pulse-dot 1.5s ease infinite;
+}
+
+/* ═══════════════ FOOTER ═══════════════ */
+.footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+.footer p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+.footer a {
+  color: var(--gold-primary);
+  text-decoration: none;
+}
+
+/* ═══════════════ ANIMATIONS ═══════════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════ RESPONSIVE ═══════════════ */
+@media (max-width: 1024px) {
+  .problema-grid,
+  .sobre-grid { grid-template-columns: 1fr; gap: 48px; }
+  .escala-grid { grid-template-columns: repeat(2, 1fr); }
+  .transform-grid { grid-template-columns: 1fr; gap: 24px; }
+  .transform-arrows { flex-direction: row; padding: 0; justify-content: center; gap: 16px; }
+}
+@media (max-width: 768px) {
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .metric-item:not(:last-child)::after { display: none; }
+  .escala-grid { grid-template-columns: 1fr; }
+  .depoimentos-grid { grid-template-columns: 1fr; }
+  .sobre-highlights { grid-template-columns: 1fr; }
+  .oferta-box-body { padding: 32px 24px; }
+  .topbar-cta { padding: 8px 20px; font-size: 0.72rem; }
+}
+@media (max-width: 480px) {
+  .hero { padding: 100px 16px 60px; }
+  .btn-primary { padding: 16px 36px; font-size: 0.78rem; }
+  .oferta-box-header { padding: 28px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="container">
+    <div class="topbar-logo">Flávio <span>Oliveira</span></div>
+    <a href="#oferta" class="topbar-cta">Quero Escalar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Vagas Limitadas — Turma 2026
+    </div>
+    <h1>
+      Pare de ser <em>escravo</em><br>
+      do seu próprio negócio
+    </h1>
+    <p class="hero-sub">
+      O método que já gerou mais de <strong class="gold-text">R$ 30 milhões</strong> em faturamento e que transforma empresários presos na operação em donos com liberdade financeira, geográfica e de tempo.
+    </p>
+    <div class="hero-cta-group">
+      <a href="#oferta" class="btn-primary">
+        Aplicar Para a Mentoria
+        <span class="arrow">→</span>
+      </a>
+      <p class="hero-proof">
+        <strong>+200</strong> empresários transformados &nbsp;·&nbsp; Método E.S.C.A.L.A.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTRICAS -->
+<section class="metrics">
+  <div class="container">
+    <div class="metrics-grid">
+      <div class="metric-item reveal">
+        <div class="metric-number">R$ 30M+</div>
+        <div class="metric-label">Faturamento Gerado</div>
+      </div>
+      <div class="metric-item reveal">
+        <div class="metric-number">3x</div>
+        <div class="metric-label">Crescimento em 12 meses</div>
+      </div>
+      <div class="metric-item reveal">
+        <div class="metric-number">8-10</div>
+        <div class="metric-label">Viagens por ano</div>
+      </div>
+      <div class="metric-item reveal">
+        <div class="metric-number">200+</div>
+        <div class="metric-label">Empresários Mentorados</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="problema">
+  <div class="container">
+    <div class="problema-grid">
+      <div class="problema-content reveal">
+        <span class="section-label">O Diagnóstico</span>
+        <h2>Você construiu um negócio que <span class="gold-text">te aprisiona?</span></h2>
+        <p>A maioria dos empresários brasileiros criou uma armadilha disfarçada de empresa. Faturam, mas não vivem. Crescem, mas não escalam. Trabalham mais do que qualquer funcionário — e chamam isso de "ser dono".</p>
+        <ul class="problema-list">
+          <li>
+            <span class="icon">⊘</span>
+            Não consegue tirar férias sem o negócio desandar
+          </li>
+          <li>
+            <span class="icon">⊘</span>
+            Apaga incêndios o dia inteiro em vez de crescer
+          </li>
+          <li>
+            <span class="icon">⊘</span>
+            Fatura, mas a margem está sendo engolida pela operação
+          </li>
+          <li>
+            <span class="icon">⊘</span>
+            Tem medo de delegar porque "ninguém faz como eu"
+          </li>
+          <li>
+            <span class="icon">⊘</span>
+            Perdeu qualidade de vida, tempo com família e saúde
+          </li>
+        </ul>
+      </div>
+      <div class="problema-visual reveal">
+        <div class="problema-card-stack">
+          <div class="stat-card">
+            <div class="stat-card-label">Realidade do empresário BR</div>
+            <div class="stat-card-value">74%</div>
+            <div class="stat-card-desc">dos empresários não conseguem sair de férias por mais de 5 dias</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Depois do Método E.S.C.A.L.A.</div>
+            <div class="stat-card-value gold">10x</div>
+            <div class="stat-card-desc">potencial de escala com operação enxuta e margem alta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTODO E.S.C.A.L.A. -->
+<section class="metodo" id="metodo">
+  <div class="container">
+    <div class="metodo-header reveal">
+      <span class="section-label">Framework Proprietário</span>
+      <h2 class="section-title">Método <span class="gold-text">E.S.C.A.L.A.</span></h2>
+      <p class="section-subtitle">Seis pilares que transformam negócios dependentes do dono em máquinas de crescimento autônomas.</p>
+    </div>
+    <div class="escala-grid">
+      <div class="escala-card reveal">
+        <div class="escala-letter">E</div>
+        <div class="escala-name">Estratégia</div>
+        <div class="escala-desc">Visão de negócio, posicionamento, modelo de receita e diferenciação competitiva. O mapa que define para onde o negócio vai.</div>
+      </div>
+      <div class="escala-card reveal">
+        <div class="escala-letter">S</div>
+        <div class="escala-name">Sistemas</div>
+        <div class="escala-desc">Processos gerenciáveis, SOPs, automações e fluxos que rodam sem você. O negócio funciona como uma máquina.</div>
+      </div>
+      <div class="escala-card reveal">
+        <div class="escala-letter">C</div>
+        <div class="escala-name">Cultura</div>
+        <div class="escala-desc">Liderança, valores, DNA da empresa e formação de líderes internos. Seu time performa sem depender de você.</div>
+      </div>
+      <div class="escala-card reveal">
+        <div class="escala-letter">A</div>
+        <div class="escala-name">Aceleração</div>
+        <div class="escala-desc">Growth, escala de faturamento, novas fontes de receita e otimização de margem. Expansão agressiva com inteligência.</div>
+      </div>
+      <div class="escala-card reveal">
+        <div class="escala-letter">L</div>
+        <div class="escala-name">Liderança</div>
+        <div class="escala-desc">Desenvolvimento do empresário como líder. Gestão de pessoas, delegação eficaz e comunicação de alto impacto.</div>
+      </div>
+      <div class="escala-card reveal">
+        <div class="escala-letter">A</div>
+        <div class="escala-name">Autonomia</div>
+        <div class="escala-desc">Liberdade financeira, geográfica e de tempo. O negócio cresce na sua ausência. Vida com propósito e legado.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMAÇÃO -->
+<section class="transformacao">
+  <div class="container">
+    <div class="transformacao-header reveal">
+      <span class="section-label">A Jornada</span>
+      <h2 class="section-title">De empresário <em style="font-family:'Playfair Display',serif;color:#D45050">preso</em> a dono <span class="gold-text">livre</span></h2>
+    </div>
+    <div class="transform-grid reveal">
+      <div class="transform-col">
+        <div class="transform-col-header antes">Antes do E.S.C.A.L.A.</div>
+        <div class="transform-item antes-item">Trabalha 12-16h por dia e não consegue delegar</div>
+        <div class="transform-item antes-item">Negócio para quando o dono sai</div>
+        <div class="transform-item antes-item">Fatura mas não sobra margem real</div>
+        <div class="transform-item antes-item">Não viaja, não descansa, não vive</div>
+        <div class="transform-item antes-item">Equipe dependente e sem liderança</div>
+        <div class="transform-item antes-item">Sem processos — tudo na cabeça do dono</div>
+      </div>
+      <div class="transform-arrows">
+        <span>→</span><span>→</span><span>→</span><span>→</span><span>→</span><span>→</span>
+      </div>
+      <div class="transform-col">
+        <div class="transform-col-header depois">Depois do E.S.C.A.L.A.</div>
+        <div class="transform-item depois-item">Trabalha nas estratégias, não na operação</div>
+        <div class="transform-item depois-item">Negócio cresce mesmo na ausência do dono</div>
+        <div class="transform-item depois-item">Escala com margem alta e operação enxuta</div>
+        <div class="transform-item depois-item">8-10 viagens por ano com a família</div>
+        <div class="transform-item depois-item">Líderes formados que resolvem sem você</div>
+        <div class="transform-item depois-item">SOPs, dashboards e gestão por indicadores</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE FLÁVIO -->
+<section class="sobre">
+  <div class="container">
+    <div class="sobre-grid">
+      <div class="sobre-visual reveal">
+        <div class="sobre-img-placeholder">
+          <div class="sobre-img-label">
+            Insira foto do
+            <span>Flávio Oliveira</span>
+          </div>
+        </div>
+        <div class="sobre-floating-card">
+          <div class="number">R$ 30M+</div>
+          <div class="label">em faturamento acumulado</div>
+        </div>
+      </div>
+      <div class="sobre-content reveal">
+        <span class="section-label">Quem é o Mentor</span>
+        <h2>Do <span class="gold-text">zero absoluto</span> a um ecossistema multimilionário</h2>
+        <p>Flávio Oliveira não é um guru de internet. É um empresário real que construiu um ecossistema no varejo da carne e experiência gastronômica que já ultrapassou R$ 30 milhões em faturamento.</p>
+        <p>No último ano, cresceu 3x, abriu novas fontes de receita, mantém operação enxuta com margem alta — e viaja de 8 a 10 vezes por ano. O negócio CRESCE na ausência dele. Essa é a prova viva do método.</p>
+        <div class="sobre-highlights">
+          <div class="highlight-item">
+            <div class="value">3x</div>
+            <div class="label">Crescimento no último ano</div>
+          </div>
+          <div class="highlight-item">
+            <div class="value">8-10</div>
+            <div class="label">Viagens por ano</div>
+          </div>
+          <div class="highlight-item">
+            <div class="value">R$ 30M+</div>
+            <div class="label">Faturamento acumulado</div>
+          </div>
+          <div class="highlight-item">
+            <div class="value">Enxuta</div>
+            <div class="label">Operação com margem alta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="depoimentos">
+  <div class="container">
+    <div class="depoimentos-header reveal">
+      <span class="section-label">Prova Social</span>
+      <h2 class="section-title">Quem aplicou, <span class="gold-text">escalou</span></h2>
+      <p class="section-subtitle">Resultados reais de empresários que implementaram o Método E.S.C.A.L.A.</p>
+    </div>
+    <div class="depoimentos-grid">
+      <div class="depoimento-card reveal">
+        <div class="depoimento-quote">"</div>
+        <div class="depoimento-text">Em 6 meses, saí da operação e o faturamento subiu 40%. Pela primeira vez em 8 anos de empresa, tirei 15 dias de férias e o negócio continuou rodando.</div>
+        <div class="depoimento-author">
+          <div class="depoimento-avatar">RM</div>
+          <div>
+            <div class="depoimento-name">Ricardo M.</div>
+            <div class="depoimento-role">Dono de rede de alimentação</div>
+          </div>
+        </div>
+        <div class="depoimento-result">
+          <span class="tag">+40% faturamento</span>
+        </div>
+      </div>
+      <div class="depoimento-card reveal">
+        <div class="depoimento-quote">"</div>
+        <div class="depoimento-text">O E.S.C.A.L.A. mudou minha cabeça. Parei de ser bombeiro e virei estrategista. Formei 3 líderes no time e agora trabalho 6 horas por dia focado no crescimento.</div>
+        <div class="depoimento-author">
+          <div class="depoimento-avatar">AP</div>
+          <div>
+            <div class="depoimento-name">Amanda P.</div>
+            <div class="depoimento-role">CEO de clínica de estética</div>
+          </div>
+        </div>
+        <div class="depoimento-result">
+          <span class="tag">3 líderes formados</span>
+        </div>
+      </div>
+      <div class="depoimento-card reveal">
+        <div class="depoimento-quote">"</div>
+        <div class="depoimento-text">Antes eu faturava R$ 800 mil e não sobrava nada. Com o método, escalei pra R$ 2 milhões com metade da dor de cabeça. Processos mudam tudo.</div>
+        <div class="depoimento-author">
+          <div class="depoimento-avatar">LS</div>
+          <div>
+            <div class="depoimento-name">Lucas S.</div>
+            <div class="depoimento-role">Dono de distribuidora</div>
+          </div>
+        </div>
+        <div class="depoimento-result">
+          <span class="tag">R$ 800K → R$ 2M</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="oferta" id="oferta">
+  <div class="container">
+    <div class="oferta-header reveal">
+      <span class="section-label">A Oferta</span>
+      <h2 class="section-title">Mentoria <span class="gold-text">Master</span></h2>
+      <p class="section-subtitle">Tudo o que você precisa para sair da operação, escalar o negócio e conquistar liberdade real.</p>
+    </div>
+    <div class="oferta-box reveal">
+      <div class="oferta-box-header">
+        <h3>Método E.S.C.A.L.A. — <span class="gold-text">Mentoria Master</span></h3>
+        <p>Acompanhamento estratégico completo para empresários que querem escalar com liberdade</p>
+      </div>
+      <div class="oferta-box-body">
+        <ul class="oferta-includes">
+          <li>
+            <span class="check">✦</span>
+            Implementação completa do Método E.S.C.A.L.A. no seu negócio
+          </li>
+          <li>
+            <span class="check">✦</span>
+            Sessões de acompanhamento estratégico individual com Flávio
+          </li>
+          <li>
+            <span class="check">✦</span>
+            Diagnóstico completo: processos, cultura, liderança e escala
+          </li>
+          <li>
+            <span class="check">✦</span>
+            Playbooks, SOPs e templates prontos para implementação
+          </li>
+          <li>
+            <span class="check">✦</span>
+            Acesso ao networking exclusivo de empresários de alto nível
+          </li>
+          <li>
+            <span class="check">✦</span>
+            Dashboard de KPIs e rituais de gestão personalizados
+            <span class="bonus-tag">Bônus</span>
+          </li>
+          <li>
+            <span class="check">✦</span>
+            Plano de ação 90 dias com metas, prazos e responsáveis
+            <span class="bonus-tag">Bônus</span>
+          </li>
+          <li>
+            <span class="check">✦</span>
+            Suporte contínuo via grupo exclusivo da mentoria
+            <span class="bonus-tag">Bônus</span>
+          </li>
+        </ul>
+        <div class="oferta-divider"></div>
+        <div class="oferta-price-block">
+          <div class="oferta-price-de">De R$ 97.000</div>
+          <div class="oferta-price-main">R$ 75.000</div>
+          <div class="oferta-price-parcela">ou 6x de R$ 12.500</div>
+          <div class="oferta-price-avista">À vista: R$ 67.500 (desconto de 10%)</div>
+          <a href="#aplicar" class="btn-primary" style="margin-top:24px;">
+            Aplicar Agora Para a Mentoria
+            <span class="arrow">→</span>
+          </a>
+          <div class="oferta-guarantee">
+            <span class="shield">🛡</span>
+            <p><strong>Garantia de Implementação:</strong> Se em 90 dias você não tiver os processos rodando e os primeiros resultados de escala, devolvemos 100% do investimento.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="faq-header reveal">
+      <span class="section-label">Dúvidas Frequentes</span>
+      <h2 class="section-title">Perguntas <span class="gold-text">comuns</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          Quanto tempo dura a mentoria?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">A Mentoria Master tem duração de 12 meses com acompanhamento estratégico completo. Nesse período, implementamos todos os 6 pilares do Método E.S.C.A.L.A. no seu negócio, com metas claras para cada trimestre.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          Funciona para qualquer tipo de negócio?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">Sim. O Método E.S.C.A.L.A. foi desenhado para empresários de qualquer segmento que faturam e querem escalar com liberdade. Já aplicamos com sucesso em restaurantes, clínicas, distribuidoras, varejo, serviços e mais.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          Preciso ter um faturamento mínimo?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">O perfil ideal é de empresários que já faturam a partir de R$ 500 mil/ano e estão prontos para escalar. Se você já tem um negócio rodando mas está preso na operação, este programa é para você.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          Como funciona o processo de aplicação?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">Você preenche uma aplicação, passamos por uma Sessão Estratégica de diagnóstico (gratuita) e, se houver fit, apresentamos a proposta completa. Não aceitamos qualquer empresário — selecionamos quem realmente está comprometido com a transformação.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          E se eu não tiver resultados?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">Oferecemos garantia de implementação de 90 dias. Se você seguir o plano e não tiver os processos rodando com os primeiros sinais de escala, devolvemos 100% do investimento. Confiamos no método porque vivemos ele.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="aplicar">
+  <div class="container">
+    <div class="cta-urgency">
+      <span class="pulse"></span>
+      Vagas limitadas — processo seletivo aberto
+    </div>
+    <h2 class="reveal">
+      A decisão que separa<br>
+      quem <em style="font-family:'Playfair Display',serif;color:var(--gold-primary)">escala</em> de quem <em style="font-family:'Playfair Display',serif;color:#D45050">estagna</em>
+    </h2>
+    <p class="reveal">
+      Se você continuar fazendo o que faz, vai continuar tendo o que tem. O Método E.S.C.A.L.A. é o caminho mais rápido para sair da operação e escalar com inteligência.
+    </p>
+    <a href="#" class="btn-primary reveal">
+      Quero Aplicar Para a Mentoria
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>
+      © 2026 Flávio Oliveira — Todos os direitos reservados.<br>
+      Método E.S.C.A.L.A. é marca registrada. <a href="#">Política de Privacidade</a> · <a href="#">Termos de Uso</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// FAQ accordion
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+// Topbar scroll effect
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const topbar = document.querySelector('.topbar');
+  const scroll = window.scrollY;
+  if (scroll > 100) {
+    topbar.style.padding = '10px 0';
+  } else {
+    topbar.style.padding = '16px 0';
+  }
+  lastScroll = scroll;
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>
