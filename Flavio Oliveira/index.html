@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnostico Estrategico E.S.C.A.L.A. | Flavio Oliveira</title>
+<meta name="description" content="Descubra exatamente onde seu negocio esta travado. Diagnostico estrategico com o Metodo E.S.C.A.L.A. por R$997 — vagas limitadas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-deep: #060D18;
+  --blue-primary: #1c4376;
+  --blue-medium: #2558A0;
+  --blue-light: #3470BF;
+  --blue-glow: rgba(28, 67, 118, 0.4);
+  --blue-glow-strong: rgba(52, 112, 191, 0.25);
+  --gold-primary: #c9a84c;
+  --gold-light: #E0C46E;
+  --gold-dark: #A68A3A;
+  --gold-glow: rgba(201, 168, 76, 0.12);
+  --gold-glow-strong: rgba(201, 168, 76, 0.25);
+  --white: #FFFFFF;
+  --text-primary: #FFFFFF;
+  --text-secondary: #8A9BB5;
+  --text-muted: #506070;
+  --bg-primary: #060D18;
+  --bg-secondary: #0A1424;
+  --bg-card: rgba(14, 26, 48, 0.6);
+  --bg-card-solid: #0E1A30;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-gold: rgba(201, 168, 76, 0.22);
+  --border-blue: rgba(52, 112, 191, 0.15);
+  --gradient-gold: linear-gradient(135deg, #c9a84c, #E0C46E, #c9a84c);
+  --shadow-gold: 0 0 40px rgba(201, 168, 76, 0.06);
+  --shadow-card: 0 4px 32px rgba(0,0,0,0.4);
+  --shadow-blue: 0 0 80px rgba(28, 67, 118, 0.15);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════ UTILITY ═══════════════ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+.gold-text {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.section-label::before,
+.section-label::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gold-primary);
+}
+
+.section-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 48px;
+  line-height: 1.8;
+}
+
+/* ═══════════════ NOISE ═══════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.015;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ═══════════════ SECTION GLOW DIVIDERS ═══════════════ */
+.glow-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(28, 67, 118, 0.4), rgba(201, 168, 76, 0.15), rgba(28, 67, 118, 0.4), transparent);
+  position: relative;
+}
+.glow-divider::after {
+  content: '';
+  position: absolute;
+  top: -30px; left: 50%; transform: translateX(-50%);
+  width: 400px; height: 60px;
+  background: radial-gradient(ellipse, rgba(28, 67, 118, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ═══════════════ TOPBAR ═══════════════ */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(6, 13, 24, 0.75);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  padding: 16px 0;
+  transition: all 0.3s ease;
+}
+.topbar .container {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.topbar-logo {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--white);
+}
+.topbar-logo span { color: var(--gold-primary); }
+.topbar-cta {
+  background: transparent;
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  padding: 10px 28px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+}
+.topbar-cta:hover {
+  background: var(--gold-primary);
+  color: var(--bg-primary);
+}
+
+/* ═══════════════ HERO ═══════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #060D18 0%, #0A1628 40%, #0A1628 100%);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: 5%;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(28, 67, 118, 0.5) 0%, rgba(52, 112, 191, 0.1) 40%, transparent 70%);
+  pointer-events: none;
+  filter: blur(20px);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 250px;
+  background: linear-gradient(to top, var(--bg-primary), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.hero-content {
+  animation: fadeInUp 1s ease 0.2s both;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid var(--border-gold);
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 32px;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  background: #4CAF50;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.hero h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.08;
+  margin-bottom: 24px;
+  letter-spacing: -0.03em;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold-primary);
+}
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin-bottom: 32px;
+  line-height: 1.8;
+}
+.hero-sub strong { color: var(--gold-primary); }
+.hero-cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.hero-proof {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+.hero-proof strong { color: var(--gold-primary); }
+/* Hero Image — immersive with blue glow */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  animation: fadeInUp 1s ease 0.5s both;
+}
+.hero-img-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+}
+.hero-img-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  border-radius: 0;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
+  filter: contrast(1.1) brightness(0.9) saturate(0.85);
+}
+/* Main blue glow — dramatic like reference */
+.hero-img-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 15%; left: 50%; transform: translateX(-50%);
+  width: 110%; height: 90%;
+  background: radial-gradient(ellipse, rgba(28, 67, 118, 0.6) 0%, rgba(52, 112, 191, 0.15) 40%, transparent 70%);
+  filter: blur(50px);
+  z-index: 1;
+  pointer-events: none;
+}
+/* Bottom blue-gold glow */
+.hero-img-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; left: 50%; transform: translateX(-50%);
+  width: 80%; height: 50%;
+  background: radial-gradient(ellipse at bottom, rgba(28, 67, 118, 0.4) 0%, rgba(201, 168, 76, 0.06) 40%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 3;
+}
+.hero-floating-stat {
+  position: absolute;
+  bottom: 60px;
+  left: -20px;
+  background: rgba(18, 36, 63, 0.85);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  box-shadow: var(--shadow-card), 0 0 30px rgba(0,0,0,0.4);
+  z-index: 4;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.hero-floating-stat .number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  line-height: 1;
+}
+.hero-floating-stat .label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* ═══════════════ BUTTONS ═══════════════ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gradient-gold);
+  color: var(--bg-primary);
+  padding: 18px 48px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  font-family: 'Outfit', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: left 0.6s ease;
+}
+.btn-primary:hover::before { left: 100%; }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201, 168, 76, 0.35);
+}
+.btn-primary .arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+.btn-primary:hover .arrow { transform: translateX(4px); }
+
+/* ═══════════════ METRICS ═══════════════ */
+.metrics {
+  padding: 60px 0;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  background: rgba(10, 20, 36, 0.5);
+  backdrop-filter: blur(10px);
+}
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+.metric-item { position: relative; }
+.metric-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 10%; height: 80%;
+  width: 1px;
+  background: var(--border-subtle);
+}
+.metric-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--gold-primary);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.metric-label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ═══════════════ PROBLEMA ═══════════════ */
+.problema {
+  padding: 120px 0;
+}
+.problema-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.problema-content h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 28px;
+}
+.problema-content p {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  font-size: 1.05rem;
+}
+.problema-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 32px;
+}
+.problema-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(212, 80, 80, 0.04);
+  border: 1px solid rgba(212, 80, 80, 0.10);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.problema-list li:hover {
+  background: rgba(212, 80, 80, 0.08);
+  border-color: rgba(212, 80, 80, 0.2);
+  transform: translateX(4px);
+}
+.problema-list .icon { flex-shrink: 0; margin-top: 2px; }
+.problema-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.problema-card-stack {
+  width: 100%;
+  max-width: 420px;
+}
+.stat-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 16px;
+  transition: all 0.4s ease;
+  cursor: default;
+}
+.stat-card:hover {
+  border-color: var(--border-blue);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-blue);
+}
+.stat-card-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.stat-card-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #D45050;
+  margin-bottom: 4px;
+}
+.stat-card-value.gold { color: var(--gold-primary); }
+.stat-card-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════ COMO FUNCIONA ═══════════════ */
+.como-funciona {
+  padding: 120px 0;
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+.como-funciona::before {
+  content: '';
+  position: absolute;
+  top: 40%; left: 30%; transform: translate(-50%, -50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(28, 67, 118, 0.35) 0%, rgba(52, 112, 191, 0.08) 40%, transparent 70%);
+  pointer-events: none;
+  filter: blur(30px);
+}
+.como-funciona-header { text-align: center; margin-bottom: 72px; position: relative; z-index: 1; }
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+.step-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  cursor: default;
+}
+.step-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue-primary), var(--gold-primary));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.step-card:hover {
+  border-color: var(--border-blue);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-blue);
+}
+.step-card:hover::before { opacity: 1; }
+.step-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+  line-height: 1;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+.step-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.step-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.step-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 4px 14px;
+  background: rgba(201, 168, 76, 0.06);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--gold-primary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ═══════════════ METODO E.S.C.A.L.A. ═══════════════ */
+.metodo {
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+.metodo::before {
+  content: '';
+  position: absolute;
+  top: 60%; right: 10%; transform: translate(0, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(28, 67, 118, 0.3) 0%, transparent 65%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+.metodo-header { text-align: center; margin-bottom: 72px; position: relative; z-index: 1; }
+.escala-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+.escala-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+.escala-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue-primary), var(--gold-primary));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.escala-card:hover {
+  border-color: var(--border-blue);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-blue);
+  background: rgba(14, 26, 48, 0.8);
+}
+.escala-card:hover::before { opacity: 1; }
+.escala-letter {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.escala-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.escala-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ═══════════════ SOBRE FLAVIO ═══════════════ */
+.sobre {
+  padding: 120px 0;
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+.sobre::after {
+  content: '';
+  position: absolute;
+  top: 30%; left: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(28, 67, 118, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+}
+.sobre-visual { position: relative; }
+.sobre-img-container {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+.sobre-img-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: top center;
+}
+.sobre-img-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 40%;
+  background: linear-gradient(to top, var(--bg-secondary), transparent);
+  pointer-events: none;
+}
+.sobre-floating-card {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 20px 28px;
+  box-shadow: var(--shadow-card);
+  z-index: 2;
+}
+.sobre-floating-card .number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+}
+.sobre-floating-card .label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+.sobre-content h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 28px;
+}
+.sobre-content p {
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-size: 1.05rem;
+}
+.sobre-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 36px;
+}
+.highlight-item {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.highlight-item:hover { border-color: var(--border-blue); }
+.highlight-item .value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  margin-bottom: 4px;
+}
+.highlight-item .label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════ O QUE VOCE RECEBE ═══════════════ */
+.entregaveis {
+  padding: 120px 0;
+}
+.entregaveis-header { text-align: center; margin-bottom: 60px; }
+.entregaveis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.entregavel-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.entregavel-card:hover {
+  border-color: var(--border-blue);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-blue);
+}
+.entregavel-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--gold-primary);
+}
+.entregavel-text h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+.entregavel-text p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ═══════════════ PARA QUEM ═══════════════ */
+.para-quem {
+  padding: 120px 0;
+  background: var(--bg-secondary);
+}
+.para-quem-header { text-align: center; margin-bottom: 60px; }
+.para-quem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.pq-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.pq-card:hover {
+  border-color: var(--border-blue);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-blue);
+}
+.pq-card.yes { border-top: 3px solid var(--gold-primary); }
+.pq-card.no { border-top: 3px solid rgba(212, 80, 80, 0.4); }
+.pq-card h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.pq-card.yes h3 { color: var(--gold-primary); }
+.pq-card.no h3 { color: #D45050; }
+.pq-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pq-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.pq-list .icon {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.pq-card.yes .icon { color: var(--gold-primary); }
+.pq-card.no .icon { color: #D45050; }
+
+/* ═══════════════ DEPOIMENTOS ═══════════════ */
+.depoimentos {
+  padding: 120px 0;
+}
+.depoimentos-header { text-align: center; margin-bottom: 72px; }
+.depoimentos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.depoimento-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  transition: all 0.4s ease;
+  cursor: default;
+}
+.depoimento-card:hover {
+  border-color: var(--border-blue);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-blue);
+}
+.depoimento-quote {
+  font-size: 2.5rem;
+  color: var(--gold-primary);
+  font-family: 'Outfit', sans-serif;
+  line-height: 1;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+.depoimento-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+.depoimento-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.depoimento-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue-primary), var(--gold-primary));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--white);
+}
+.depoimento-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+}
+.depoimento-role {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.depoimento-result {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+.depoimento-result .tag {
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid var(--border-gold);
+  color: var(--gold-primary);
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ═══════════════ JANTAR BONUS ═══════════════ */
+.jantar-bonus {
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+.jantar-bonus::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.jantar-box {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(18, 36, 63, 0.95) 0%, rgba(10, 22, 40, 0.98) 100%);
+  border: 1px solid var(--gold-primary);
+  border-radius: var(--radius-xl);
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 0 80px rgba(201, 168, 76, 0.08), 0 4px 40px rgba(0,0,0,0.3);
+}
+.jantar-badge-row {
+  background: var(--gradient-gold);
+  padding: 12px 0;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--bg-primary);
+}
+.jantar-inner {
+  padding: 56px 56px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.jantar-content .jantar-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.jantar-content h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+.jantar-content .jantar-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+.jantar-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.jantar-features li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.jantar-features .jf-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--gold-primary);
+}
+.jantar-visual {
+  text-align: center;
+}
+.jantar-highlight-card {
+  background: rgba(201, 168, 76, 0.04);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  text-align: center;
+}
+.jantar-highlight-card .jh-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.1);
+  border: 2px solid var(--gold-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: var(--gold-primary);
+}
+.jantar-highlight-card .jh-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.jantar-highlight-card .jh-label {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+.jantar-highlight-card .jh-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid var(--border-subtle);
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  letter-spacing: 1px;
+}
+.jantar-highlight-card .jh-companion {
+  margin-top: 16px;
+  font-size: 0.82rem;
+  color: var(--gold-primary);
+  font-weight: 600;
+}
+.jantar-countdown {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+.jantar-countdown .jc-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.jantar-countdown .jc-bar-wrapper {
+  background: rgba(201, 168, 76, 0.08);
+  border-radius: 100px;
+  height: 8px;
+  overflow: hidden;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.jantar-countdown .jc-bar {
+  height: 100%;
+  background: var(--gradient-gold);
+  border-radius: 100px;
+  width: 65%;
+  transition: width 0.6s ease;
+}
+.jantar-countdown .jc-slots {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #D45050;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 1024px) {
+  .jantar-inner { grid-template-columns: 1fr; gap: 36px; }
+  .jantar-inner { padding: 40px 32px 36px; }
+}
+@media (max-width: 480px) {
+  .jantar-inner { padding: 32px 20px 28px; }
+}
+
+/* ═══════════════ APLICACAO ═══════════════ */
+.aplicacao {
+  padding: 120px 0;
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+.aplicacao::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 600px;
+  background: radial-gradient(ellipse, rgba(28, 67, 118, 0.3) 0%, transparent 65%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+.aplicacao-header { text-align: center; margin-bottom: 48px; position: relative; z-index: 1; }
+.aplicacao-box {
+  max-width: 640px;
+  margin: 0 auto;
+  background: rgba(10, 20, 36, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 80px rgba(28, 67, 118, 0.12);
+}
+.aplicacao-box h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.aplicacao-box .box-sub {
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 36px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--gold-primary);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B7D94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+.form-group select option {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-submit {
+  margin-top: 28px;
+  text-align: center;
+}
+.form-submit .btn-primary {
+  width: 100%;
+  justify-content: center;
+}
+.form-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.form-guarantee svg {
+  width: 14px;
+  height: 14px;
+  color: var(--gold-primary);
+  flex-shrink: 0;
+}
+
+/* ═══════════════ FAQ ═══════════════ */
+.faq {
+  padding: 120px 0;
+}
+.faq-header { text-align: center; margin-bottom: 60px; }
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.faq-item {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.faq-item:hover { border-color: var(--border-blue); }
+.faq-question {
+  padding: 24px 28px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+.faq-question .toggle {
+  font-size: 1.3rem;
+  color: var(--gold-primary);
+  transition: transform 0.3s ease;
+}
+.faq-item.open .faq-question .toggle { transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.faq-item.open .faq-answer { max-height: 300px; }
+.faq-answer-content {
+  padding: 0 28px 24px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ═══════════════ CTA FINAL ═══════════════ */
+.cta-final {
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+.cta-final::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 900px; height: 500px;
+  background: radial-gradient(ellipse, rgba(28, 67, 118, 0.35) 0%, rgba(201, 168, 76, 0.06) 40%, transparent 70%);
+  pointer-events: none;
+  filter: blur(30px);
+}
+.cta-final .container { position: relative; z-index: 1; }
+.cta-final h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.cta-final p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+.cta-urgency {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(212, 80, 80, 0.08);
+  border: 1px solid rgba(212, 80, 80, 0.15);
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #D45050;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+}
+.cta-urgency .pulse {
+  width: 8px; height: 8px;
+  background: #D45050;
+  border-radius: 50%;
+  animation: pulse-dot 1.5s ease infinite;
+}
+
+/* ═══════════════ FOOTER ═══════════════ */
+.footer {
+  padding: 48px 0;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  text-align: center;
+  background: #040910;
+}
+.footer p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+.footer a {
+  color: var(--gold-primary);
+  text-decoration: none;
+}
+.footer a:hover { text-decoration: underline; }
+
+/* ═══════════════ ANIMATIONS ═══════════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════ RESPONSIVE ═══════════════ */
+/* ═══════════════ TABLET ═══════════════ */
+@media (max-width: 1024px) {
+  .container { padding: 0 20px; }
+
+  /* Hero */
+  .hero .container { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+  .hero-content { order: 1; }
+  .hero-visual { order: 0; }
+  .hero-cta-group { align-items: center; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-img-wrapper { max-width: 320px; }
+  .hero-floating-stat { left: auto; right: 10px; bottom: 40px; }
+
+  /* Grids */
+  .problema-grid,
+  .sobre-grid { grid-template-columns: 1fr; gap: 48px; }
+  .steps-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+  .escala-grid { grid-template-columns: repeat(2, 1fr); }
+  .para-quem-grid { grid-template-columns: 1fr; max-width: 500px; }
+  .entregaveis-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+
+  /* Sections spacing */
+  .problema,
+  .metodo,
+  .transformacao,
+  .sobre,
+  .entregaveis,
+  .para-quem,
+  .depoimentos,
+  .jantar-bonus,
+  .aplicacao,
+  .faq,
+  .cta-final { padding: 80px 0; }
+}
+
+/* ═══════════════ MOBILE ═══════════════ */
+@media (max-width: 768px) {
+  /* Base typography — more readable on small screens */
+  body { font-size: 15px; line-height: 1.65; }
+
+  /* Container tighter */
+  .container { padding: 0 16px; }
+
+  /* Section titles scale down */
+  .section-title { font-size: clamp(1.5rem, 6vw, 2.2rem); margin-bottom: 14px; }
+  .section-subtitle { font-size: 0.95rem; margin-bottom: 36px; line-height: 1.7; }
+  .section-label { font-size: 0.68rem; letter-spacing: 3px; margin-bottom: 14px; }
+
+  /* Topbar */
+  .topbar-cta { padding: 8px 18px; font-size: 0.7rem; letter-spacing: 1.5px; }
+  .topbar-logo { font-size: 1.1rem; }
+
+  /* Hero */
+  .hero { padding: 90px 16px 50px; min-height: auto; }
+  .hero h1 { font-size: clamp(1.8rem, 7vw, 2.6rem); line-height: 1.12; margin-bottom: 18px; }
+  .hero-sub { font-size: 0.92rem; line-height: 1.7; margin-bottom: 28px; }
+  .hero-badge { font-size: 0.68rem; padding: 6px 16px; letter-spacing: 2px; margin-bottom: 24px; }
+  .hero-img-wrapper { max-width: 340px; }
+  .hero-floating-stat { padding: 14px 18px; bottom: 30px; right: 0; }
+  .hero-floating-stat .number { font-size: 1.4rem; }
+  .hero-floating-stat .label { font-size: 0.68rem; }
+  .hero-proof { font-size: 0.75rem; }
+
+  /* Metrics */
+  .metrics { padding: 40px 0; }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .metric-item:not(:last-child)::after { display: none; }
+  .metric-number { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+  .metric-label { font-size: 0.72rem; letter-spacing: 0.5px; }
+
+  /* Problema */
+  .problema-content h2 { font-size: clamp(1.4rem, 5vw, 2rem); }
+  .problema-content p { font-size: 0.95rem; }
+  .problema-list li { padding: 14px 16px; font-size: 0.88rem; gap: 12px; }
+  .stat-card { padding: 24px; }
+  .stat-card-value { font-size: 1.8rem; }
+  .stat-card-desc { font-size: 0.82rem; }
+
+  /* Steps */
+  .step-card { padding: 28px 24px; }
+  .step-number { font-size: 2.5rem; }
+  .step-title { font-size: 1.05rem; }
+  .step-desc { font-size: 0.85rem; }
+
+  /* ESCALA cards */
+  .escala-grid { grid-template-columns: 1fr; }
+  .escala-card { padding: 28px 24px; }
+  .escala-letter { font-size: 2.2rem; }
+  .escala-name { font-size: 1.05rem; }
+  .escala-desc { font-size: 0.85rem; }
+
+  /* Sobre */
+  .sobre-content h2 { font-size: clamp(1.4rem, 5vw, 2rem); }
+  .sobre-content p { font-size: 0.95rem; }
+  .sobre-highlights { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .highlight-item { padding: 16px; }
+  .highlight-item .value { font-size: 1.3rem; }
+  .highlight-item .label { font-size: 0.75rem; }
+  .sobre-floating-card { bottom: -12px; right: -8px; padding: 14px 20px; }
+  .sobre-floating-card .number { font-size: 1.5rem; }
+
+  /* Entregaveis */
+  .entregavel-card { padding: 24px; gap: 16px; }
+  .entregavel-icon { width: 42px; height: 42px; }
+  .entregavel-text h4 { font-size: 0.95rem; }
+  .entregavel-text p { font-size: 0.82rem; }
+
+  /* Para Quem */
+  .pq-card { padding: 24px; }
+  .pq-card h3 { font-size: 1.1rem; margin-bottom: 16px; }
+  .pq-list li { font-size: 0.85rem; gap: 10px; }
+
+  /* Depoimentos */
+  .depoimentos-grid { grid-template-columns: 1fr; }
+  .depoimento-card { padding: 28px; }
+  .depoimento-text { font-size: 0.88rem; }
+
+  /* Jantar bonus */
+  .jantar-inner { padding: 32px 24px 28px !important; }
+  .jantar-content h3 { font-size: clamp(1.3rem, 5vw, 1.8rem); }
+  .jantar-content .jantar-desc { font-size: 0.9rem; }
+  .jantar-features li { font-size: 0.88rem; gap: 12px; }
+  .jantar-features .jf-icon { width: 32px; height: 32px; border-radius: 8px; }
+  .jantar-highlight-card { padding: 32px 24px; }
+  .jantar-highlight-card .jh-number { font-size: 3rem; }
+  .jantar-badge-row { font-size: 0.68rem; letter-spacing: 2px; padding: 10px 16px; }
+
+  /* Aplicacao form */
+  .aplicacao-box { padding: 28px 20px; }
+  .aplicacao-box h3 { font-size: 1.3rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .form-group label { font-size: 0.75rem; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea { padding: 12px 14px; font-size: 0.9rem; }
+
+  /* FAQ */
+  .faq-question { padding: 20px 20px; font-size: 0.92rem; }
+  .faq-answer-content { padding: 0 20px 20px; font-size: 0.85rem; }
+
+  /* CTA final */
+  .cta-final h2 { font-size: clamp(1.5rem, 6vw, 2.4rem); }
+  .cta-final p { font-size: 0.95rem; }
+  .cta-urgency { font-size: 0.72rem; padding: 8px 18px; }
+
+  /* Buttons */
+  .btn-primary { padding: 16px 32px; font-size: 0.78rem; letter-spacing: 2px; }
+
+  /* Sections spacing */
+  .problema,
+  .metodo,
+  .transformacao,
+  .sobre,
+  .entregaveis,
+  .para-quem,
+  .depoimentos,
+  .jantar-bonus,
+  .aplicacao,
+  .faq,
+  .cta-final { padding: 64px 0; }
+
+  /* Transformacao */
+  .transform-grid { grid-template-columns: 1fr; gap: 20px; }
+  .transform-arrows { flex-direction: row; padding: 0; justify-content: center; gap: 12px; font-size: 1rem; }
+  .transform-col-header { font-size: 0.68rem; padding: 12px 16px; }
+  .transform-item { padding: 14px 16px; font-size: 0.85rem; }
+}
+
+/* ═══════════════ SMALL MOBILE ═══════════════ */
+@media (max-width: 400px) {
+  .container { padding: 0 14px; }
+  .hero { padding: 84px 14px 40px; }
+  .hero h1 { font-size: 1.6rem; }
+  .hero-sub { font-size: 0.85rem; }
+  .hero-img-wrapper { max-width: 300px; }
+  .section-title { font-size: 1.35rem; }
+  .btn-primary { padding: 14px 28px; font-size: 0.72rem; width: 100%; justify-content: center; }
+  .sobre-highlights { grid-template-columns: 1fr; }
+  .metrics-grid { grid-template-columns: 1fr; gap: 16px; }
+  .jantar-highlight-card .jh-number { font-size: 2.5rem; }
+  .jantar-content h3 { font-size: 1.2rem; }
+  .aplicacao-box { padding: 24px 16px; }
+
+  .problema,
+  .metodo,
+  .transformacao,
+  .sobre,
+  .entregaveis,
+  .para-quem,
+  .depoimentos,
+  .jantar-bonus,
+  .aplicacao,
+  .faq,
+  .cta-final { padding: 48px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar" role="navigation" aria-label="Navegacao principal">
+  <div class="container">
+    <div class="topbar-logo">Flavio <span>Oliveira</span></div>
+    <a href="#aplicacao" class="topbar-cta">Agendar Diagnostico</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Vagas Limitadas — Apenas 10 por Mes
+      </div>
+      <h1>
+        Descubra <em>exatamente</em> onde<br>
+        seu negocio esta travado
+      </h1>
+      <p class="hero-sub">
+        Em <strong>90 minutos</strong>, vamos diagnosticar os gargalos que impedem sua empresa de escalar — usando o mesmo metodo que gerou <strong>R$ 30 milhoes</strong> em faturamento. Por apenas <strong>R$ 997</strong>.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#aplicacao" class="btn-primary">
+          Quero Meu Diagnostico Estrategico
+          <span class="arrow">→</span>
+        </a>
+        <p class="hero-proof">
+          <strong>+200</strong> empresarios ja diagnosticados &nbsp;·&nbsp; Metodo E.S.C.A.L.A.
+        </p>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrapper">
+        <img src="public/fotos/IMG_8072-nobg.png" alt="Flavio Oliveira — Mentor de empresarios" width="896" height="1200" loading="eager">
+        <div class="hero-floating-stat">
+          <div class="number">R$ 997</div>
+          <div class="label">Diagnostico completo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICAS -->
+<section class="metrics">
+  <div class="container">
+    <div class="metrics-grid">
+      <div class="metric-item reveal">
+        <div class="metric-number">R$ 30M+</div>
+        <div class="metric-label">Faturamento Gerado</div>
+      </div>
+      <div class="metric-item reveal">
+        <div class="metric-number">3x</div>
+        <div class="metric-label">Crescimento em 12 meses</div>
+      </div>
+      <div class="metric-item reveal">
+        <div class="metric-number">200+</div>
+        <div class="metric-label">Empresarios Diagnosticados</div>
+      </div>
+      <div class="metric-item reveal">
+        <div class="metric-number">6</div>
+        <div class="metric-label">Pilares Analisados</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- PROBLEMA -->
+<section class="problema">
+  <div class="container">
+    <div class="problema-grid">
+      <div class="problema-content reveal">
+        <span class="section-label">O Diagnostico</span>
+        <h2>Voce sabe onde seu negocio esta <span class="gold-text">realmente travado?</span></h2>
+        <p>A maioria dos empresarios sente que algo esta errado, mas nao consegue identificar a raiz do problema. Apagam incendios todo dia, trabalham 14 horas e ainda assim o negocio nao escala.</p>
+        <p>O problema quase nunca e falta de esforco. E falta de <strong style="color:var(--gold-primary)">diagnostico preciso</strong>.</p>
+        <ul class="problema-list">
+          <li>
+            <span class="icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D45050" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </span>
+            Trabalha 12-16h/dia e nao sabe o que cortar
+          </li>
+          <li>
+            <span class="icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D45050" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </span>
+            Fatura, mas a margem desaparece na operacao
+          </li>
+          <li>
+            <span class="icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D45050" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </span>
+            Sabe que precisa delegar, mas nao sabe por onde comecar
+          </li>
+          <li>
+            <span class="icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D45050" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </span>
+            Sente que bateu num teto e nao consegue furar
+          </li>
+        </ul>
+      </div>
+      <div class="problema-visual reveal">
+        <div class="problema-card-stack">
+          <div class="stat-card">
+            <div class="stat-card-label">Realidade do empresario BR</div>
+            <div class="stat-card-value">74%</div>
+            <div class="stat-card-desc">dos empresarios nao sabem identificar o gargalo principal do negocio</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Apos o diagnostico E.S.C.A.L.A.</div>
+            <div class="stat-card-value gold">90 min</div>
+            <div class="stat-card-desc">de diagnostico profundo para identificar exatamente onde o negocio esta travado</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="como-funciona">
+  <div class="container">
+    <div class="como-funciona-header reveal">
+      <span class="section-label">Passo a Passo</span>
+      <h2 class="section-title">Como funciona a <span class="gold-text">Sessao Estrategica</span></h2>
+      <p class="section-subtitle">Uma sessao de diagnostico profundo e personalizado. Voce sai com um mapa completo de acao para destravar seu negocio.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-number">01</div>
+        <div class="step-title">Imersao no Seu Negocio</div>
+        <div class="step-desc">Entendemos sua historia, modelo de receita, estrutura de equipe e os desafios reais que voce enfrenta. Sem roteiro generico — cada sessao e unica.</div>
+        <div class="step-duration">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          15 minutos
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">02</div>
+        <div class="step-title">Diagnostico E.S.C.A.L.A. Profundo</div>
+        <div class="step-desc">Raio-X completo nos 6 pilares. Identificamos cada gargalo, priorizamos por impacto e montamos o mapa de desbloqueio do seu negocio.</div>
+        <div class="step-duration">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          45 minutos
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">03</div>
+        <div class="step-title">Plano de Acao + Visao de Escala</div>
+        <div class="step-desc">Voce sai com um plano concreto de 30 dias, projecao de escala e clareza total sobre os proximos passos do seu negocio.</div>
+        <div class="step-duration">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          30 minutos
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- METODO E.S.C.A.L.A. -->
+<section class="metodo" id="metodo">
+  <div class="container">
+    <div class="metodo-header reveal">
+      <span class="section-label">A Lente do Diagnostico</span>
+      <h2 class="section-title">Metodo <span class="gold-text">E.S.C.A.L.A.</span></h2>
+      <p class="section-subtitle">O framework que usamos para olhar pro seu negocio e encontrar o pilar exato que esta travando tudo.</p>
+    </div>
+    <div class="escala-grid">
+      <div class="escala-card reveal">
+        <div class="escala-letter">E</div>
+        <div class="escala-name">Estrategia</div>
+        <div class="escala-desc">Seu negocio tem visao clara, posicionamento definido e modelo de receita otimizado? Ou esta crescendo no escuro?</div>
+      </div>
+      <div class="escala-card reveal">
+        <div class="escala-letter">S</div>
+        <div class="escala-name">Sistemas</div>
+        <div class="escala-desc">Seus processos estao documentados e rodam sem voce? Ou esta tudo na sua cabeca e morre com voce?</div>
+      </div>
+      <div class="escala-card reveal">
+        <div class="escala-letter">C</div>
+        <div class="escala-name">Cultura</div>
+        <div class="escala-desc">Seu time tem DNA, valores e lideres formados? Ou depende de voce pra cada decisao?</div>
+      </div>
+      <div class="escala-card reveal">
+        <div class="escala-letter">A</div>
+        <div class="escala-name">Aceleracao</div>
+        <div class="escala-desc">Voce tem alavancas de crescimento ativas e margem otimizada? Ou fatura mais e sobra menos?</div>
+      </div>
+      <div class="escala-card reveal">
+        <div class="escala-letter">L</div>
+        <div class="escala-name">Lideranca</div>
+        <div class="escala-desc">Voce lidera ou opera? Delega com eficacia ou centraliza tudo por medo?</div>
+      </div>
+      <div class="escala-card reveal">
+        <div class="escala-letter">A</div>
+        <div class="escala-name">Autonomia</div>
+        <div class="escala-desc">Seu negocio cresce na sua ausencia? Ou para quando voce sai?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE FLAVIO -->
+<section class="sobre">
+  <div class="container">
+    <div class="sobre-grid">
+      <div class="sobre-visual reveal">
+        <div class="sobre-img-container">
+          <img src="public/fotos/IMG_8074.PNG" alt="Flavio Oliveira — Empresario e mentor" width="928" height="1152" loading="lazy">
+        </div>
+        <div class="sobre-floating-card">
+          <div class="number">R$ 30M+</div>
+          <div class="label">em faturamento acumulado</div>
+        </div>
+      </div>
+      <div class="sobre-content reveal">
+        <span class="section-label">Quem Faz o Diagnostico</span>
+        <h2>Do <span class="gold-text">zero absoluto</span> a um ecossistema multimilionario</h2>
+        <p>Flavio Oliveira nao e consultor de slide bonito. E um empresario de trincheira que construiu um ecossistema no varejo da carne e experiencia gastronomica que ja ultrapassou R$ 30 milhoes.</p>
+        <p>Ele olha pro seu negocio e em 30 minutos sabe exatamente onde esta travado. Porque ja viveu cada um dos gargalos que voce enfrenta — e resolveu todos.</p>
+        <div class="sobre-highlights">
+          <div class="highlight-item">
+            <div class="value">3x</div>
+            <div class="label">Crescimento em 12 meses</div>
+          </div>
+          <div class="highlight-item">
+            <div class="value">8-10</div>
+            <div class="label">Viagens por ano</div>
+          </div>
+          <div class="highlight-item">
+            <div class="value">R$ 30M+</div>
+            <div class="label">Faturamento acumulado</div>
+          </div>
+          <div class="highlight-item">
+            <div class="value">Enxuta</div>
+            <div class="label">Operacao com margem alta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE VOCE RECEBE -->
+<section class="entregaveis">
+  <div class="container">
+    <div class="entregaveis-header reveal">
+      <span class="section-label">O que esta incluso</span>
+      <h2 class="section-title">Muito mais que um <span class="gold-text">diagnostico</span></h2>
+      <p class="section-subtitle">Voce nao recebe apenas um raio-X. Recebe ferramentas reais para comecar a destravar seu negocio imediatamente.</p>
+    </div>
+    <div class="entregaveis-grid">
+      <div class="entregavel-card reveal">
+        <div class="entregavel-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="entregavel-text">
+          <h4>Diagnostico E.S.C.A.L.A. Completo</h4>
+          <p>Raio-X dos 6 pilares do seu negocio com identificacao precisa de onde esta o gargalo principal.</p>
+        </div>
+      </div>
+      <div class="entregavel-card reveal">
+        <div class="entregavel-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        </div>
+        <div class="entregavel-text">
+          <h4>Mapa de Prioridades Personalizado</h4>
+          <p>Exatamente o que voce precisa resolver primeiro, segundo e terceiro — em ordem de impacto no seu negocio.</p>
+        </div>
+      </div>
+      <div class="entregavel-card reveal">
+        <div class="entregavel-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="entregavel-text">
+          <h4>Plano de Acao 30 Dias</h4>
+          <p>Roteiro pratico com os primeiros passos que voce precisa implementar para comecar a destravar a escala.</p>
+        </div>
+      </div>
+      <div class="entregavel-card reveal">
+        <div class="entregavel-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="entregavel-text">
+          <h4>Visao de Escala 6-12 Meses</h4>
+          <p>Projecao realista de como seu negocio pode estar com os ajustes certos nos pilares identificados.</p>
+        </div>
+      </div>
+    </div>
+    <!-- BONUS -->
+    <div class="bonus-section reveal" style="margin-top:60px;">
+      <div style="text-align:center;margin-bottom:40px;">
+        <span class="section-label">Bonus Exclusivos</span>
+        <h3 style="font-family:'Outfit',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;margin-top:8px;">Inclusos no seu <span class="gold-text">Diagnostico</span></h3>
+      </div>
+      <div class="entregaveis-grid">
+        <div class="entregavel-card" style="border-color:var(--border-gold);">
+          <div class="entregavel-icon" style="background:rgba(201,168,76,0.15);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <div class="entregavel-text">
+            <h4>Checklist E.S.C.A.L.A. <span style="background:var(--gold-primary);color:var(--bg-primary);font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:1px;text-transform:uppercase;margin-left:8px;vertical-align:middle;">Bonus</span></h4>
+            <p>Ferramenta de autodiagnostico para voce aplicar nos 6 pilares sempre que precisar recalibrar o negocio.</p>
+          </div>
+        </div>
+        <div class="entregavel-card" style="border-color:var(--border-gold);">
+          <div class="entregavel-icon" style="background:rgba(201,168,76,0.15);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="entregavel-text">
+            <h4>Gravacao da Sessao <span style="background:var(--gold-primary);color:var(--bg-primary);font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:1px;text-transform:uppercase;margin-left:8px;vertical-align:middle;">Bonus</span></h4>
+            <p>Voce recebe a gravacao completa da sessao para revisar e compartilhar com socios e equipe de lideranca.</p>
+          </div>
+        </div>
+        <div class="entregavel-card" style="border-color:var(--border-gold);">
+          <div class="entregavel-icon" style="background:rgba(201,168,76,0.15);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="entregavel-text">
+            <h4>Template de KPIs Essenciais <span style="background:var(--gold-primary);color:var(--bg-primary);font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:1px;text-transform:uppercase;margin-left:8px;vertical-align:middle;">Bonus</span></h4>
+            <p>Planilha pronta com os indicadores que todo empresario precisa acompanhar para escalar com controle.</p>
+          </div>
+        </div>
+        <div class="entregavel-card" style="border-color:var(--border-gold);">
+          <div class="entregavel-icon" style="background:rgba(201,168,76,0.15);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="entregavel-text">
+            <h4>Acesso ao Grupo VIP 7 Dias <span style="background:var(--gold-primary);color:var(--bg-primary);font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:1px;text-transform:uppercase;margin-left:8px;vertical-align:middle;">Bonus</span></h4>
+            <p>7 dias de acesso ao grupo exclusivo de empresarios para tirar duvidas e trocar experiencias pos-diagnostico.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM -->
+<section class="para-quem">
+  <div class="container">
+    <div class="para-quem-header reveal">
+      <span class="section-label">Qualificacao</span>
+      <h2 class="section-title">Esta sessao e para <span class="gold-text">voce?</span></h2>
+      <p class="section-subtitle">Priorizamos empresarios que estao prontos para agir. Vagas limitadas por mes.</p>
+    </div>
+    <div class="para-quem-grid">
+      <div class="pq-card yes reveal">
+        <h3>Agende se voce...</h3>
+        <ul class="pq-list">
+          <li>
+            <span class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Ja fatura a partir de R$ 500 mil/ano
+          </li>
+          <li>
+            <span class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Sente que o negocio depende 100% de voce
+          </li>
+          <li>
+            <span class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Quer clareza sobre o que esta travando a escala
+          </li>
+          <li>
+            <span class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Esta disposto a ouvir a verdade sobre seu negocio
+          </li>
+        </ul>
+      </div>
+      <div class="pq-card no reveal">
+        <h3>Nao agende se voce...</h3>
+        <ul class="pq-list">
+          <li>
+            <span class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
+            Ainda nao tem um negocio rodando
+          </li>
+          <li>
+            <span class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
+            Busca formula magica sem esforco
+          </li>
+          <li>
+            <span class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
+            Nao vai implementar o que descobrir
+          </li>
+          <li>
+            <span class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
+            Quer apenas motivacao, nao diagnostico real
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- DEPOIMENTOS -->
+<section class="depoimentos">
+  <div class="container">
+    <div class="depoimentos-header reveal">
+      <span class="section-label">Prova Social</span>
+      <h2 class="section-title">Quem fez o diagnostico, <span class="gold-text">escalou</span></h2>
+      <p class="section-subtitle">Empresarios que comecaram com uma sessao estrategica e transformaram seus negocios.</p>
+    </div>
+    <div class="depoimentos-grid">
+      <div class="depoimento-card reveal">
+        <div class="depoimento-quote">"</div>
+        <div class="depoimento-text">Na sessao, o Flavio identificou em 20 minutos o que eu nao via ha 3 anos. Em 6 meses, sai da operacao e o faturamento subiu 40%.</div>
+        <div class="depoimento-author">
+          <div class="depoimento-avatar">RM</div>
+          <div>
+            <div class="depoimento-name">Ricardo M.</div>
+            <div class="depoimento-role">Dono de rede de alimentacao</div>
+          </div>
+        </div>
+        <div class="depoimento-result">
+          <span class="tag">+40% faturamento</span>
+        </div>
+      </div>
+      <div class="depoimento-card reveal">
+        <div class="depoimento-quote">"</div>
+        <div class="depoimento-text">Achava que meu problema era marketing. O diagnostico mostrou que era lideranca. Formei 3 lideres e agora trabalho 6 horas por dia.</div>
+        <div class="depoimento-author">
+          <div class="depoimento-avatar">AP</div>
+          <div>
+            <div class="depoimento-name">Amanda P.</div>
+            <div class="depoimento-role">CEO de clinica de estetica</div>
+          </div>
+        </div>
+        <div class="depoimento-result">
+          <span class="tag">3 lideres formados</span>
+        </div>
+      </div>
+      <div class="depoimento-card reveal">
+        <div class="depoimento-quote">"</div>
+        <div class="depoimento-text">Faturava R$ 800 mil e nao sobrava nada. A sessao revelou que eu nao tinha processo nenhum. Com as mudancas, escalei pra R$ 2 milhoes.</div>
+        <div class="depoimento-author">
+          <div class="depoimento-avatar">LS</div>
+          <div>
+            <div class="depoimento-name">Lucas S.</div>
+            <div class="depoimento-role">Dono de distribuidora</div>
+          </div>
+        </div>
+        <div class="depoimento-result">
+          <span class="tag">R$ 800K → R$ 2M</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BONUS ESPECIAL: JANTAR DE NEGOCIOS -->
+<section class="jantar-bonus">
+  <div class="container">
+    <div class="jantar-box reveal">
+      <div class="jantar-badge-row">
+        Bonus Especial — Apenas Para os 20 Primeiros
+      </div>
+      <div class="jantar-inner">
+        <div class="jantar-content">
+          <div class="jantar-eyebrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Experiencia Exclusiva
+          </div>
+          <h3>Jantar de <span class="gold-text">Negocios</span> no Big Jhow</h3>
+          <p class="jantar-desc">Os primeiros 20 empresarios que garantirem o Diagnostico recebem um convite exclusivo para o Jantar de Negocios — uma noite de alto nivel com quem joga no mesmo patamar que voce.</p>
+          <ul class="jantar-features">
+            <li>
+              <span class="jf-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              Network com empresarios de alto faturamento
+            </li>
+            <li>
+              <span class="jf-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </span>
+              Palestras exclusivas com insights de escala
+            </li>
+            <li>
+              <span class="jf-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </span>
+              Direito a um acompanhante — leve seu socio
+            </li>
+            <li>
+              <span class="jf-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </span>
+              Experiencia gastronomica premium no Big Jhow
+            </li>
+          </ul>
+        </div>
+        <div class="jantar-visual">
+          <div class="jantar-highlight-card">
+            <div class="jh-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="jh-number">20</div>
+            <div class="jh-label">vagas com convite para o Jantar</div>
+            <div class="jh-location">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Big Jhow — Experiencia Gastronomica
+            </div>
+            <div class="jh-companion">Voce + 1 acompanhante</div>
+          </div>
+          <div class="jantar-countdown">
+            <div class="jc-text">Vagas preenchidas</div>
+            <div class="jc-bar-wrapper">
+              <div class="jc-bar"></div>
+            </div>
+            <div class="jc-slots">Restam poucas vagas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARIO DE APLICACAO -->
+<section class="aplicacao" id="aplicacao">
+  <div class="container">
+    <div class="aplicacao-header reveal">
+      <span class="section-label">Garanta Sua Vaga</span>
+      <h2 class="section-title">Aplique para o <span class="gold-text">Diagnostico Estrategico</span></h2>
+      <p class="section-subtitle">Preencha os dados abaixo para liberar o checkout. Analisamos cada aplicacao — vagas limitadas.</p>
+    </div>
+    <div class="aplicacao-box reveal">
+      <h3>Diagnostico <span class="gold-text">E.S.C.A.L.A.</span></h3>
+      <div style="text-align:center;margin-bottom:8px;">
+        <span style="font-size:0.82rem;color:var(--text-muted);text-decoration:line-through;">De R$ 2.500</span>
+      </div>
+      <div style="text-align:center;margin-bottom:6px;">
+        <span style="font-family:'Outfit',sans-serif;font-size:2.5rem;font-weight:800;color:var(--gold-primary);">R$ 997</span>
+      </div>
+      <p class="box-sub">90 minutos de diagnostico profundo + bonus exclusivos + Jantar de Negocios*</p>
+      <form id="form-diagnostico" action="#" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nome">Seu nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome completo" required>
+          </div>
+          <div class="form-group">
+            <label for="whatsapp">WhatsApp</label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="segmento">Segmento do negocio</label>
+            <select id="segmento" name="segmento" required>
+              <option value="" disabled selected>Selecione</option>
+              <option value="alimentacao">Alimentacao / Restaurantes</option>
+              <option value="varejo">Varejo</option>
+              <option value="servicos">Servicos</option>
+              <option value="saude">Saude / Clinicas</option>
+              <option value="distribuicao">Distribuicao</option>
+              <option value="franquias">Franquias</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="faturamento">Faturamento anual</label>
+            <select id="faturamento" name="faturamento" required>
+              <option value="" disabled selected>Selecione</option>
+              <option value="ate-500k">Ate R$ 500 mil</option>
+              <option value="500k-1m">R$ 500 mil — R$ 1 milhao</option>
+              <option value="1m-3m">R$ 1M — R$ 3 milhoes</option>
+              <option value="3m-5m">R$ 3M — R$ 5 milhoes</option>
+              <option value="5m-10m">R$ 5M — R$ 10 milhoes</option>
+              <option value="acima-10m">Acima de R$ 10 milhoes</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="desafio">Qual seu maior desafio hoje?</label>
+          <textarea id="desafio" name="desafio" rows="3" placeholder="Ex: Nao consigo sair da operacao, minha equipe depende de mim pra tudo..."></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn-primary">
+            Ir Para o Checkout — R$ 997
+            <span class="arrow">→</span>
+          </button>
+        </div>
+        <div class="form-guarantee">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Pagamento seguro · Vagas limitadas · *Jantar para os 20 primeiros
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="faq-header reveal">
+      <span class="section-label">Duvidas</span>
+      <h2 class="section-title">Perguntas <span class="gold-text">frequentes</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Quanto custa o diagnostico?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">O Diagnostico Estrategico E.S.C.A.L.A. custa R$ 997 (valor promocional — o preco regular e R$ 2.500). Voce recebe a sessao completa de 90 minutos, mapa de prioridades, plano de acao e todos os 4 bonus exclusivos.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Quanto tempo dura a sessao?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">Sao 90 minutos de imersao profunda: 15 minutos de contexto, 45 minutos de diagnostico E.S.C.A.L.A. completo e 30 minutos de plano de acao e visao de escala. Voce sai com um mapa real, nao com teoria.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Preciso ter um faturamento minimo?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">O perfil ideal e de empresarios que ja faturam a partir de R$ 500 mil/ano. Se voce ja tem um negocio rodando mas sente que esta travado, esta sessao foi feita pra voce.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Vao tentar me vender algo na sessao?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">O foco da sessao e 100% diagnostico e valor. Voce sai com entregaveis reais — raio-X, mapa, plano de acao. Se fizer sentido para ambos, podemos apresentar como dar continuidade ao trabalho. Mas o diagnostico e completo e valioso por si so — voce ja paga por ele e recebe tudo que foi prometido.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Funciona para qualquer segmento?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">Sim. O Metodo E.S.C.A.L.A. foi desenhado para qualquer empresa que fatura e quer escalar com liberdade. Ja aplicamos em restaurantes, clinicas, distribuidoras, varejo, servicos, franquias e mais.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="container">
+    <div class="cta-urgency">
+      <span class="pulse"></span>
+      Vagas limitadas — apenas 10 por mes
+    </div>
+    <h2 class="reveal">
+      Voce pode continuar no escuro.<br>
+      Ou descobrir em <em style="font-family:'Outfit',sans-serif;color:var(--gold-primary)">90 minutos</em><br>
+      o que esta travando tudo.
+    </h2>
+    <p class="reveal">
+      Por R$ 997, voce recebe 90 minutos de diagnostico profundo, mapa de prioridades, plano de acao e bonus exclusivos. Os 20 primeiros ainda garantem o Jantar de Negocios no Big Jhow.
+    </p>
+    <a href="#aplicacao" class="btn-primary reveal">
+      Quero Meu Diagnostico — R$ 997
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>
+      &copy; 2026 Flavio Oliveira — Todos os direitos reservados.<br>
+      Metodo E.S.C.A.L.A. e marca registrada. <a href="#">Politica de Privacidade</a> · <a href="#">Termos de Uso</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// FAQ accordion
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      item.classList.add('open');
+      q.setAttribute('aria-expanded', 'true');
+    }
+  });
+  q.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); }
+  });
+});
+
+// Topbar scroll
+window.addEventListener('scroll', () => {
+  const topbar = document.querySelector('.topbar');
+  topbar.style.padding = window.scrollY > 100 ? '10px 0' : '16px 0';
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// WhatsApp mask
+const whatsappInput = document.getElementById('whatsapp');
+if (whatsappInput) {
+  whatsappInput.addEventListener('input', (e) => {
+    let v = e.target.value.replace(/\D/g, '');
+    if (v.length > 11) v = v.slice(0, 11);
+    if (v.length > 7) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+    else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    else if (v.length > 0) v = `(${v}`;
+    e.target.value = v;
+  });
+}
+
+// Google Sheets Webhook
+var SHEET_WEBHOOK = 'https://script.google.com/macros/s/AKfycbw2U15axlNot_iSEO1QJePi8V-4PoFVVN2OhnpgalpbAN5GB5okXs_eVn5PXG0CTaFA/exec';
+
+// Envia dados via iframe oculto (funciona em qualquer ambiente, sem CORS)
+function enviarParaSheet(dados) {
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.action = SHEET_WEBHOOK;
+  form.target = 'sheet-iframe';
+  form.style.display = 'none';
+  Object.keys(dados).forEach(function(key) {
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = dados[key];
+    form.appendChild(input);
+  });
+  var iframe = document.getElementById('sheet-iframe');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.name = 'sheet-iframe';
+    iframe.id = 'sheet-iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
+  document.body.appendChild(form);
+  form.submit();
+  form.remove();
+}
+
+// Form submit — envia ao Sheets e redireciona ao checkout Hotmart
+document.getElementById('form-diagnostico').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = this.querySelector('.btn-primary');
+  btn.innerHTML = '<span style="letter-spacing:2px">REDIRECIONANDO AO CHECKOUT...</span>';
+  btn.style.pointerEvents = 'none';
+  btn.style.opacity = '0.7';
+
+  var nome = document.getElementById('nome').value;
+  var email = document.getElementById('email').value;
+  var whatsapp = document.getElementById('whatsapp').value;
+  var segmento = document.getElementById('segmento').value;
+  var faturamento = document.getElementById('faturamento').value;
+  var desafio = document.getElementById('desafio').value;
+
+  // Envia dados ao Google Sheets via iframe
+  enviarParaSheet({
+    nome: nome,
+    email: email,
+    whatsapp: whatsapp,
+    segmento: segmento,
+    faturamento: faturamento,
+    desafio: desafio
+  });
+
+  // Redireciona ao checkout Hotmart
+  setTimeout(function() {
+    window.location.href = 'https://pay.hotmart.com/O105005886B'
+      + '?email=' + encodeURIComponent(email)
+      + '&name=' + encodeURIComponent(nome)
+      + '&phoneac=' + encodeURIComponent(whatsapp);
+  }, 1200);
+});
+</script>
+
+</body>
+</html>
